@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class States extends Model
 {
     protected $table  = 'states';
-
-    public static function find($id){
-    }
-
-    public static function findAll(){
-    }
+    protected $fillable = [
+        'fk_user',
+        'state'
+    ];
 }

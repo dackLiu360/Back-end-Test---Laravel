@@ -3,22 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Users extends Model
 {
     protected $table  = 'users';
-
-    public static function insert($params){
-    }
-
-    public static function findById($id){
-    }
-
-    public static function updateById($id, $params){
-    }
-
-    public static function removeById($id){
-    }
+    protected $fillable = [
+        'fk_user',
+        'username'
+    ];
 
     public static function findUsersTotalByCity($name){
     }

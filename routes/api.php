@@ -14,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//#############################  users api    ###########################################
+Route::post('createUser', 'UsersController@create');
+Route::get('findUser/{id}', 'UsersController@read');
+Route::patch('updateUser/{id}', 'UsersController@delete');
+Route::delete('deleteUser/{id}',  'UsersController@delete');
+Route::get('findUsersTotalByCity/{city}',  'UsersController@readUsersTotalByCity');
+Route::get('findUsersTotalByState/{state}',  'UsersController@readUsersTotalByState');
+
+//#############################  adresses api    ###########################################
+Route::get('findAdressById/{id}', 'AddressesController@read');
+Route::get('findAllAdresses',  'AddressesController@readAll');
+
+//#############################  cities api    ###########################################
+Route::get('findCityById/{id}', 'CitiesController@read');
+Route::get('findAllCities',  'CitiesController@readAll');
+
+//#############################  states api    ###########################################
+Route::get('findStateById/{id}', 'StatesController@read');
+Route::get('findAllStates',  'StatesController@readAll');

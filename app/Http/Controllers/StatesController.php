@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class StateController extends Controller{
+class StatesController extends Controller{
     
     /**
      * Get the state by the given id
@@ -16,7 +16,6 @@ class StateController extends Controller{
     /**
      * Get all the states registered
      */
-    public function readAll(Request $request){ 
+    public function readAll(){ 
     }
-
 }

@@ -5,17 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AddressController extends Controller{
-
+class CitiesController extends Controller{
+    
     /**
-     * Get the adress by the given id
+     * Get the city by the given id
      */
     public function read(Request $request){ 
     }
     
     /**
-     * Get all the adresses registered
+     * Get all the cities registered
      */
     public function readAll(Request $request){ 
     }
+
 }

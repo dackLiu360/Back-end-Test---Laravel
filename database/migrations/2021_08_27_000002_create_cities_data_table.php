@@ -16,7 +16,7 @@ class CreateCitiesDataTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('fk_user')->unique()->constrained('users');
-            $table->string('name');
+            $table->string('city');
         });
     }
 

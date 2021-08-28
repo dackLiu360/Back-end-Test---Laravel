@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class Users extends Model
 {
+    public $timestamps = false;
     protected $table  = 'users';
     protected $fillable = [
-        'fk_user',
-        'username'
+        'username',
+        'password'
     ];
 
     public static function findUsersTotalByCity($name){

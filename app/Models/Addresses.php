@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Addresses extends Model
 {
-    protected $table  = 'adresses';
+    public $timestamps = false;
+    protected $table  = 'addresses';
     protected $fillable = [
         'fk_user',
         'adress'

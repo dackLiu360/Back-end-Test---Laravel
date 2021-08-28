@@ -16,7 +16,7 @@ class CreateAddressesDataTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('fk_user')->unique()->constrained('users');
-            $table->string('adress');
+            $table->string('address');
         });
     }
 

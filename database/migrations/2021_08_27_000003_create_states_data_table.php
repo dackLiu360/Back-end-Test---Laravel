@@ -15,7 +15,7 @@ class CreateStatesDataTable extends Migration
     {
         Schema::create('states', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('fk_user')->unique()->constrained('users');
+            $table->foreignId('fk_user')->unique()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('state');
         });
     }

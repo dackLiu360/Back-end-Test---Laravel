@@ -11,31 +11,37 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller {
 
+    const USERNAME = 'username';
+    const PASSWORD = 'password';
+    const ADDRESS = 'address';
+    const CITY = 'city';
+    const STATE = 'state';
+    const FK_USER = 'fk_user';
+    const ID = 'id';
+
     /**
      * Registers an user data 
      */
     public function create(Request $request){  
+        $user = Users::create([
+            self::USERNAME => $request->username,
+            self::PASSWORD => $request->password
+        ]);
 
-        $users = new Users;
-        $addresses = new Addresses;
-        $cities = new Cities;
-        $states = new States;
+        Addresses::create([
+            self::FK_USER => $user->id,
+            self::ADDRESS => $request->address
+        ]);
 
-        $users->username = $request->username;
-        $users->password = $request->password;
-        $addresses->address = $request->address;
-        $cities->city = $request->city;
-        $states->state = $request->state;        
+        Cities::create([
+            self::FK_USER => $user->id,
+            self::CITY => $request->city
+        ]);
 
-        $users->save();
-
-        $addresses->fk_user = $users->id;
-        $cities->fk_user = $users->id;
-        $states->fk_user = $users->id;
-
-        $addresses->save();
-        $cities->save();
-        $states->save();
+        States::create([
+            self::FK_USER => $user->id,
+            self::STATE => $request->state
+        ]);
 
         return true;
     }
@@ -44,40 +50,56 @@ class UsersController extends Controller {
      * Get an user by the given id
      */
     public function read(Request $request){
+        $data = Users::where(self::ID, $request->id)->first();
 
-        $read = Users::where('id', $request->id)->first();
+        return json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
 
-        return $read;
- 
+    /**
+     * Get all the users and infos
+     */
+    public function readAll(Request $request){
+        $users = Users::get();
+        $data = [];
+
+        foreach ($users as $k => $user) {
+            $data[$k][self::USERNAME] = $user->username;
+            $data[$k][self::PASSWORD] = $user->password;
+            $data[$k][self::ADDRESS] = Addresses::select(self::ADDRESS)->where(self::FK_USER, $user->id)->first()->address;
+            $data[$k][self::CITY] = Cities::select(self::CITY)->where(self::FK_USER, $user->id)->first()->city;
+            $data[$k][self::STATE] = States::select(self::STATE)->where(self::FK_USER, $user->id)->first()->state;
+        }
+
+        return json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Updates an user info by the given id
      */
     public function update(Request $request){ 
-
-        $users = new Users;
-        $addresses = new Addresses;
-        $cities = new Cities;
-        $states = new States;
-
-        $id = $request->id;
-
-        if((isset($request->username) ? $users->username = $request->username : false) ||
-        (isset($request->password) ? $users->password = $request->password : false)){
-            $users->where('id', $id)->update();
+        if(isset($request->username)){
+            Users::where(self::ID, $request->id)
+            ->update([self::USERNAME => $request->username]);
         }
 
-        if(isset($request->address) ? $addresses->address = $request->address : false){
-            $addresses->where('fk_user', $id)->update();
+        if(isset($request->password)){
+            Users::where(self::ID, $request->id)
+            ->update([self::PASSWORD => $request->password]);
         }
 
-        if(isset($request->city) ? $cities->city = $request->city : false){
-            $cities->where('fk_user', $id)->update();
+        if(isset($request->address)){
+            Addresses::where(self::FK_USER, $request->id)
+            ->update([self::ADDRESS => $request->address]);
         }
 
-        if(isset($request->state) ? $states->state = $request->state : false){
-            $states->where('fk_user', $id)->update();
+        if(isset($request->city)){
+            Cities::where(self::FK_USER, $request->id)
+            ->update([self::CITY => $request->city]);
+        }
+
+        if(isset($request->state)){
+            States::where(self::FK_USER, $request->id)
+            ->update([self::STATE => $request->state]);
         }
 
         return true;
@@ -87,17 +109,9 @@ class UsersController extends Controller {
      *  Deletes an user by the given id
      */
     public function delete(Request $request){ 
-    }
+        Users::where(self::ID, $request->id)
+        ->delete();
 
-    /**
-     * Get the total of users related to certain city
-     */
-    public function readUsersTotalByCity(Request $request){
-    }
-
-    /**
-     * Get the total of users related to certain state
-     */
-    public function readUsersTotalByState(Request $request){
+        return true;
     }
 }

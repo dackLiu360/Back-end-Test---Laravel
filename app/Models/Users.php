@@ -12,10 +12,4 @@ class Users extends Model
         'username',
         'password'
     ];
-
-    public static function findUsersTotalByCity($name){
-    }
-
-    public static function findUsersTotalByStates($name){
-    }
 }

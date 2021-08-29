@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +16,9 @@ use Illuminate\Support\Facades\Route;
 //#############################  users api    ###########################################
 Route::post('createUser', 'UsersController@create');
 Route::get('findUser/{id}', 'UsersController@read');
+Route::get('findUsers/', 'UsersController@readAll');
 Route::patch('updateUser/{id}', 'UsersController@update');
 Route::delete('deleteUser/{id}',  'UsersController@delete');
-Route::get('findUsersTotalByCity/{city}',  'UsersController@readUsersTotalByCity');
-Route::get('findUsersTotalByState/{state}',  'UsersController@readUsersTotalByState');
 
 //#############################  adresses api    ###########################################
 Route::get('findAdressById/{id}', 'AddressesController@read');
@@ -29,7 +27,9 @@ Route::get('findAllAdresses',  'AddressesController@readAll');
 //#############################  cities api    ###########################################
 Route::get('findCityById/{id}', 'CitiesController@read');
 Route::get('findAllCities',  'CitiesController@readAll');
+Route::get('findUsersTotalByCity/{city}',  'CitiesController@readUsersTotalByCity');
 
 //#############################  states api    ###########################################
 Route::get('findStateById/{id}', 'StatesController@read');
 Route::get('findAllStates',  'StatesController@readAll');
+Route::get('findUsersTotalByState/{state}',  'StatesController@readUsersTotalByState');

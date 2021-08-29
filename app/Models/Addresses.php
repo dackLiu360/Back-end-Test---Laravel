@@ -10,6 +10,6 @@ class Addresses extends Model
     protected $table  = 'addresses';
     protected $fillable = [
         'fk_user',
-        'adress'
+        'address'
     ];
 }

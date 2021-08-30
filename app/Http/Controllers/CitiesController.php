@@ -55,7 +55,9 @@ class CitiesController extends Controller
     public function readUsersTotalByCity(Request $request)
     {
         try {
-            $data = Cities::where(self::CITY, $request->city)->count();
+            $name = urldecode($request->city);
+            $name = str_replace('%', ' ', $name);
+            $data = Cities::where(self::CITY, $name)->count();
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }

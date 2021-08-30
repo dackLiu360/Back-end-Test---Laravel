@@ -2,29 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\States;
 use Exception;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 
-class StatesController extends Controller
+class StatesController extends MethodsDefaultController
 {
-
-    const ID = 'id';
-    const STATE = 'state';
-    const ERROR_NOT_FOUND_ID = 'No state was found by the given id!';
-    const ERROR_NOT_FOUND = 'No state was found!';
-    const TOTAL_STATES = 'The total of users registered by the given state found was: ';
-
     /**
      * Get the state by the given id
      */
     public function read(Request $request)
     {
         try {
-            if(empty($data = States::select(self::STATE)->where(self::ID, $request->id)->first())){
-                throw new InvalidArgumentException(self::ERROR_NOT_FOUND_ID);
+            if(empty($data = $this->getStateById($request->id))){
+                throw new InvalidArgumentException(self::ERROR_NOT_FOUND_STATE_ID);
             }
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
@@ -39,8 +30,8 @@ class StatesController extends Controller
     public function readAll()
     {
         try {
-            if(empty($data = response()->json(States::select(self::STATE)->distinct()->get()))){
-                throw new InvalidArgumentException(self::ERROR_NOT_FOUND);
+            if(empty($data = response()->json($this->getStatesName()))){
+                throw new InvalidArgumentException(self::ERROR_NOT_FOUND_STATE);
             }
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
@@ -55,7 +46,7 @@ class StatesController extends Controller
     public function readUsersTotalByState(Request $request)
     {
         try {
-            $data = States::where(self::STATE, $request->state)->count();
+            $data = $this->getTotalUsersByState($request->state);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }

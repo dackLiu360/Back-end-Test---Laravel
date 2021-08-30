@@ -2,29 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Cities;
 use Exception;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 
-class CitiesController extends Controller
+class CitiesController extends MethodsDefaultController
 {
-
-    const ID = 'id';
-    const CITY = 'city';
-    const ERROR_NOT_FOUND_ID = 'No city was found by the given id!';
-    const ERROR_NOT_FOUND = 'No city was found!';
-    const TOTAL_CITIES = 'The total of users registered by the given city found was: ';
-
     /**
      * Get the city by the given id
      */
     public function read(Request $request)
     {
         try {
-            if(empty($data = Cities::select(self::CITY)->where(self::ID, $request->id)->first())){
-                throw new InvalidArgumentException(self::ERROR_NOT_FOUND_ID);
+            if(empty($data = $this->getCityById($request->id))){
+                throw new InvalidArgumentException(self::ERROR_NOT_FOUND_CITY_ID);
             }
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
@@ -39,8 +30,8 @@ class CitiesController extends Controller
     public function readAll(Request $request)
     {
         try {
-            if(empty($data = response()->json(Cities::select(self::CITY)->distinct()->get()))){
-                throw new InvalidArgumentException(self::ERROR_NOT_FOUND);
+            if(empty($data = response()->json($this->getCitiesName()))){
+                throw new InvalidArgumentException(self::ERROR_NOT_FOUND_CITY);
             }
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
@@ -56,8 +47,7 @@ class CitiesController extends Controller
     {
         try {
             $name = urldecode($request->city);
-            $name = str_replace('%', ' ', $name);
-            $data = Cities::where(self::CITY, $name)->count();
+            $data = $this->getTotalUsersByCity($name);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }

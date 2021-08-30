@@ -21,7 +21,7 @@ Route::patch('updateUser/{id}', 'UsersController@update');
 Route::delete('deleteUser/{id}',  'UsersController@delete');
 
 //#############################  adresses api    ###########################################
-Route::get('findAdressById/{id}', 'AddressesController@read');
+Route::get('findAddressById/{id}', 'AddressesController@read');
 Route::get('findAllAdresses',  'AddressesController@readAll');
 
 //#############################  cities api    ###########################################

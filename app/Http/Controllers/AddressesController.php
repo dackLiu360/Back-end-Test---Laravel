@@ -2,28 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Addresses;
 use Exception;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 
-class AddressesController extends Controller
+class AddressesController extends MethodsDefaultController
 {
-
-    const ID = 'id';
-    const ADDRESS = 'address';
-    const ERROR_NOT_FOUND_ID = 'No address was found by the given id!';
-    const ERROR_NOT_FOUND = 'No address was found!';
-
     /**
      * Get the adress by the given id
      */
     public function read(Request $request)
     {
         try {
-            if(empty($data = Addresses::select(self::ADDRESS)->where(self::ID, $request->id)->first())){
-                throw new InvalidArgumentException(self::ERROR_NOT_FOUND_ID);
+            if(empty($data = $this->getAddressById($request->id))){
+                throw new InvalidArgumentException(self::ERROR_NOT_FOUND_ADDRESS_ID);
             }
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
@@ -38,8 +30,8 @@ class AddressesController extends Controller
     public function readAll(Request $request)
     {
         try {
-            if(empty($data = response()->json(Addresses::select(self::ADDRESS)->distinct()->get()))){
-                throw new InvalidArgumentException(self::ERROR_NOT_FOUND);
+            if(empty($data = response()->json($this->getAddressesName()))){
+                throw new InvalidArgumentException(self::ERROR_NOT_FOUND_ADDRESS);
             }
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);

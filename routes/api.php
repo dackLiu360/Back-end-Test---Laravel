@@ -22,7 +22,7 @@ Route::delete('deleteUser/{id}',  'UsersController@delete');
 
 //#############################  adresses api    ###########################################
 Route::get('findAddressById/{id}', 'AddressesController@read');
-Route::get('findAllAdresses',  'AddressesController@readAll');
+Route::get('findAllAddresses',  'AddressesController@readAll');
 
 //#############################  cities api    ###########################################
 Route::get('findCityById/{id}', 'CitiesController@read');

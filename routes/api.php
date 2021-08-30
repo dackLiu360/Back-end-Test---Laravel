@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 //#############################  users api    ###########################################
 Route::post('createUser', 'UsersController@create');
-Route::get('findUser/{id}', 'UsersController@read');
+Route::get('findUserById/{id}', 'UsersController@read');
 Route::get('findAllUsers/', 'UsersController@readAll');
 Route::patch('updateUser/{id}', 'UsersController@update');
 Route::delete('deleteUser/{id}',  'UsersController@delete');

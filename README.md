@@ -21,7 +21,7 @@ FLUSH PRIVILEGES;
 
 2. Clonar o projeto 
 
-3. Entrar na pasta do projeto e rodar composer install para instalar as dependencias do composer.json
+3. Entrar na pasta do projeto e rodar ```composer install``` para instalar as dependencias do composer.json
 
 4. Criar o arquivo ```.env``` na raiz do projeto e copiar o conteúdo do ```.env.example``` nele 
 

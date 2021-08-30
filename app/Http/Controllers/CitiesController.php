@@ -14,7 +14,7 @@ class CitiesController extends MethodsDefaultController
     public function read(Request $request)
     {
         try {
-            if(empty($data = $this->getCityById($request->id))){
+            if (empty($data = $this->getCityById($request->id))) {
                 throw new InvalidArgumentException(self::ERROR_NOT_FOUND_CITY_ID);
             }
         } catch (Exception $e) {
@@ -30,7 +30,7 @@ class CitiesController extends MethodsDefaultController
     public function readAll(Request $request)
     {
         try {
-            if(empty($data = response()->json($this->getCitiesName()))){
+            if (empty($data = response()->json($this->getCitiesName()))) {
                 throw new InvalidArgumentException(self::ERROR_NOT_FOUND_CITY);
             }
         } catch (Exception $e) {

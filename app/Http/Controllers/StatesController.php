@@ -14,7 +14,7 @@ class StatesController extends MethodsDefaultController
     public function read(Request $request)
     {
         try {
-            if(empty($data = $this->getStateById($request->id))){
+            if (empty($data = $this->getStateById($request->id))) {
                 throw new InvalidArgumentException(self::ERROR_NOT_FOUND_STATE_ID);
             }
         } catch (Exception $e) {
@@ -30,7 +30,7 @@ class StatesController extends MethodsDefaultController
     public function readAll()
     {
         try {
-            if(empty($data = response()->json($this->getStatesName()))){
+            if (empty($data = response()->json($this->getStatesName()))) {
                 throw new InvalidArgumentException(self::ERROR_NOT_FOUND_STATE);
             }
         } catch (Exception $e) {

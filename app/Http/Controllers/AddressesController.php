@@ -14,7 +14,7 @@ class AddressesController extends MethodsDefaultController
     public function read(Request $request)
     {
         try {
-            if(empty($data = $this->getAddressById($request->id))){
+            if (empty($data = $this->getAddressById($request->id))) {
                 throw new InvalidArgumentException(self::ERROR_NOT_FOUND_ADDRESS_ID);
             }
         } catch (Exception $e) {
@@ -30,7 +30,7 @@ class AddressesController extends MethodsDefaultController
     public function readAll(Request $request)
     {
         try {
-            if(empty($data = response()->json($this->getAddressesName()))){
+            if (empty($data = response()->json($this->getAddressesName()))) {
                 throw new InvalidArgumentException(self::ERROR_NOT_FOUND_ADDRESS);
             }
         } catch (Exception $e) {

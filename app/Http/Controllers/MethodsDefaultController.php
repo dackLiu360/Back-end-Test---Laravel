@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 
 class MethodsDefaultController extends Controller
 {
-
     const ID = 'id';
     const ADDRESS = 'address';
     const USERNAME = 'username';
@@ -96,31 +95,31 @@ class MethodsDefaultController extends Controller
     protected function updateFields($id, $params)
     {
         try {
-            foreach($params as $field => $param){
-                switch($field){
+            foreach ($params as $field => $param) {
+                switch ($field) {
                     case 'username':
                         Users::where(self::ID, $id)
-                        ->update([self::USERNAME => $param]);
+                            ->update([self::USERNAME => $param]);
                         break;
 
                     case 'password':
                         Users::where(self::ID, $id)
-                        ->update([self::PASSWORD => Hash::make($param)]);
+                            ->update([self::PASSWORD => Hash::make($param)]);
                         break;
 
                     case 'address':
                         Addresses::where(self::FK_USER, $id)
-                        ->update([self::ADDRESS => $param]);
+                            ->update([self::ADDRESS => $param]);
                         break;
 
                     case 'city':
                         Cities::where(self::FK_USER, $id)
-                        ->update([self::CITY => $param]);
+                            ->update([self::CITY => $param]);
                         break;
 
                     case 'state':
                         States::where(self::FK_USER, $id)
-                        ->update([self::STATE => $param]);
+                            ->update([self::STATE => $param]);
                         break;
                 }
             }

@@ -21,7 +21,7 @@ class UsersController extends MethodsDefaultController
                 throw new InvalidArgumentException(self::ERROR_FILLED);
             }
 
-            if($this->getUserByUsername($request->username)){
+            if ($this->getUserByUsername($request->username)) {
                 throw new InvalidArgumentException(self::ERROR_ALREADY_EXISTS);
             }
 
@@ -39,7 +39,7 @@ class UsersController extends MethodsDefaultController
     public function read(Request $request)
     {
         try {
-            if(empty($data = $this->getUserById($request->id))){
+            if (empty($data = $this->getUserById($request->id))) {
                 throw new InvalidArgumentException(self::ERROR_NOT_FOUND_USER_ID);
             }
             $data['password'] = self::HIDE_PASSWORD;
@@ -56,7 +56,7 @@ class UsersController extends MethodsDefaultController
     public function readAll(Request $request)
     {
         try {
-            if(empty(response()->json($users = $this->getUsersIdUsername()))){
+            if (empty(response()->json($users = $this->getUsersIdUsername()))) {
                 throw new InvalidArgumentException(self::ERROR_NOT_FOUND_USER);
             }
 
@@ -82,7 +82,7 @@ class UsersController extends MethodsDefaultController
     public function update(Request $request)
     {
         try {
-            if(empty($this->getUserById($request->id))){
+            if (empty($this->getUserById($request->id))) {
                 throw new InvalidArgumentException(self::ERROR_NOT_FOUND_USER_ID);
             }
 
@@ -115,7 +115,7 @@ class UsersController extends MethodsDefaultController
     public function delete(Request $request)
     {
         try {
-            if(empty($request->id) || empty($this->deleteUserInfo($request->id))){
+            if (empty($request->id) || empty($this->deleteUserInfo($request->id))) {
                 throw new InvalidArgumentException(self::ERROR_NOT_FOUND_USER_ID);
             }
         } catch (Exception $e) {
